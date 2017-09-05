@@ -1,0 +1,8 @@
+Third Party Tools
+We will not be using any third party tools. Unity version we are using is 2017.1.. We will be using an asset from the unity asset store, it is called Unity-Chan which is designed by ntny, made by FlightUnit, Copyrighted and produced by Unity.
+
+
+Coding Conventions
+We will be using Hungarian notation throughout the project.
+Source Control
+We will be using GitHub for source control. For commit messages everyone should clearly point out what they have done to the project.
