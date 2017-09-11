@@ -1,55 +1,82 @@
-﻿using System.Collections;
+﻿// Using, etc
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//--------------------------------------------------------------------------------------
+// AnimeGirlMovement object
+//--------------------------------------------------------------------------------------
 public class AnimeGirlMovement : MonoBehaviour
 {
+	// Player speed.
     public float m_fSpeed = 10.0f;
-    private Animator anim;
 
-    // Use this for initialization
-    void Start()
+	// Player animation.
+    private Animator m_aAnimate;
+
+	//--------------------------------------------------------------------------------------
+	// initialization
+	//--------------------------------------------------------------------------------------
+	void Start()
     {
-        anim = GetComponent<Animator>();
+		m_aAnimate = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+	//--------------------------------------------------------------------------------------
+	// Update: Function that calls each frame to update game objects.
+	//--------------------------------------------------------------------------------------
+	void Update()
     {
+		// Get the values of the Horizontal and vertical virtual axis.
+        float fHor = Input.GetAxis("Horizontal") * Time.deltaTime * m_fSpeed;
+        float fVer = Input.GetAxis("Vertical") * Time.deltaTime * m_fSpeed;
 
-//#if UNITY_IOS
-
-//#else
-        float H = Input.GetAxis("Horizontal") * Time.deltaTime * m_fSpeed;
-        float V = Input.GetAxis("Vertical") * Time.deltaTime * m_fSpeed;
-//#endif
-
-		if (H < 0)
+		//--------------------------
+		// Player walking animations.
+		//--------------------------
+		if (fHor < 0)
 		{
-			anim.SetBool("IsLeft", true);
+			// If the player goes left.
+			// Animate left.
+			m_aAnimate.SetBool("IsLeft", true);
 		}
-		else if(H > 0)
+		else if(fHor > 0)
 		{
-			anim.SetBool("IsRight", true);
+			// If the player goes right.
+			// Animate right.
+			m_aAnimate.SetBool("IsRight", true);
 		}
 		else
 		{
-			anim.SetBool("IsLeft", false);
-			anim.SetBool("IsRight", false);
+			// Set both animation to false if not going wither direction.
+			m_aAnimate.SetBool("IsLeft", false);
+			m_aAnimate.SetBool("IsRight", false);
 		}
+		//--------------------------
+		// Player walking animations.
+		//--------------------------
 
-
-		if (V != 0 && H < 0)
+		//--------------------------
+		// Player jumping animations.
+		//--------------------------
+		if (fVer != 0 && fHor < 0)
 		{
-				anim.SetTrigger("IsJumping");
+			// if vertical axis is 0 and Horizontal is less then 0.
+			// Animate jumping.
+			m_aAnimate.SetTrigger("IsJumping");
 		}
-		else if (V != 0 && H > 0)
+		else if (fVer != 0 && fHor > 0)
 		{
-				anim.SetTrigger("IsJumpingRight");
+			// if vertical axis is 0 and Horizontal is greater then 0.
+			// Animate jumping right.
+			m_aAnimate.SetTrigger("IsJumpingRight");
 		}
+		//--------------------------
+		// Player jumping animations.
+		//--------------------------
 
-		transform.Translate(H, 0, 0);
-
-		transform.Translate(0, V, 0);
+		// Update the player transform.
+		transform.Translate(fHor, 0, 0);
+		transform.Translate(0, fVer, 0);
 	}
 }
