@@ -6,12 +6,13 @@ public class AnimeGirlMovement : MonoBehaviour
 {
 	public float m_fSpeed = 10.0f;
 	private Animator anim;
+
 	// Use this for initialization
 	void Start ()
 	{
 		anim = GetComponent<Animator>();
 	}
-	
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -32,17 +33,18 @@ public class AnimeGirlMovement : MonoBehaviour
 			anim.SetBool("IsRight", false);
 		}
 
-		if(V != 0)
+
+		if (V != 0 && H < 0)
 		{
-			anim.SetTrigger("IsJumping");
+				anim.SetTrigger("IsJumping");
+		}
+		else if (V != 0 && H > 0)
+		{
+				anim.SetTrigger("IsJumpingRight");
 		}
 
 		transform.Translate(H, 0, 0);
 
 		transform.Translate(0, V, 0);
-
-
 	}
-
-
 }
