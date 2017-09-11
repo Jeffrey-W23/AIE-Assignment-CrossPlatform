@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class AnimeGirlMovement : MonoBehaviour
 {
-	public float m_fSpeed = 10.0f;
-	private Animator anim;
+    public float m_fSpeed = 10.0f;
+    private Animator anim;
 
-	// Use this for initialization
-	void Start ()
-	{
-		anim = GetComponent<Animator>();
-	}
+    // Use this for initialization
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
-	// Update is called once per frame
-	void Update ()
-	{
-		float H = Input.GetAxis("Horizontal") * Time.deltaTime * m_fSpeed;
-		float V = Input.GetAxis("Vertical") * Time.deltaTime * m_fSpeed;
+    // Update is called once per frame
+    void Update()
+    {
+
+//#if UNITY_IOS
+
+//#else
+        float H = Input.GetAxis("Horizontal") * Time.deltaTime * m_fSpeed;
+        float V = Input.GetAxis("Vertical") * Time.deltaTime * m_fSpeed;
+//#endif
 
 		if (H < 0)
 		{
